@@ -1,18 +1,18 @@
-data "terraform_remote_state" "aks" {
-  backend = "local"
-
-  config = {
-    path = "terraform.tfstate"
-  }
-}
+#data "terraform_remote_state" "aks" {
+#  backend = "local"
+#
+#  config = {
+#    path = "terraform.tfstate"
+#  }
+#}
 
 provider "azurerm" {
   features {}
 }
 
 data "azurerm_kubernetes_cluster" "default" {
-  name                = data.terraform_remote_state.aks.outputs.kubernetes_cluster_name
-  resource_group_name = data.terraform_remote_state.aks.outputs.resource_group_name
+  name                = azurerm_kubernetes_cluster.default.name
+  resource_group_name = azurerm_kubernetes_cluster.default.resource_group_name
 }
 
 provider "kubernetes" {
