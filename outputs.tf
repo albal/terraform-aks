@@ -19,7 +19,8 @@
 # }
 
 output "kube_config" {
-  value = azurerm_kubernetes_cluster.default.kube_config_raw
+  value     = azurerm_kubernetes_cluster.default.kube_config_raw
+  sensitive = true
 }
 
 # output "cluster_username" {
@@ -29,3 +30,7 @@ output "kube_config" {
 # output "cluster_password" {
 #   value = azurerm_kubernetes_cluster.default.kube_config.0.password
 # }
+
+output "nginx_ip" {
+  value = kubernetes_service.demo-svc.metadata
+}
